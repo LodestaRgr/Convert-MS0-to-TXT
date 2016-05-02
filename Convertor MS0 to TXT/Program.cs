@@ -46,18 +46,17 @@ namespace ConsoleApplication1
 
                     Console.Write("\n\n==============================================================================");
 
-                    string buf = "";
-                    //считывает первую строку
-                    buf = reader.ReadLine();
+                    string buf = reader.ReadLine();                 //Считывает первую строку
+                    string k = ((char) reader.Peek()).ToString();   //Запоминает первый символ следующей строки
 
-                    while (!reader.EndOfStream)
+                    while (!reader.EndOfStream)                     //Запуск процесса конвертации
                     {
-                        Console.SetCursorPosition(cx, cy);
-                        Console.Write(i);
+                        Console.SetCursorPosition(cx, cy);          //ставит курсор на позицию
+                        Console.Write(i);                           //пишет номер обрабатываемой строки
 
-                        buf = reader.ReadLine();
+                        buf = reader.ReadLine();                    //считывает строку
 
-                        if (Convert.ToString(buf[0]) == "О")
+                        if (buf[0].ToString() == k)                 //если строка начинается с символа к
                         {
                             writer.Write(buf);
                             j = false;
@@ -69,9 +68,9 @@ namespace ConsoleApplication1
                                 writer.Write(buf + "\n");
                                 j = true;
                             }
-                        }
-                        //System.Threading.Thread.Sleep(10);
 
+                        }
+                        //System.Threading.Thread.Sleep(10);        //пауза 10мс
                         i++;
                     }
 
