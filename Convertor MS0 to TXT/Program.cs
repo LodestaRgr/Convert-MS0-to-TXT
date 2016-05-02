@@ -44,6 +44,8 @@ namespace ConsoleApplication1
                     int cx = Console.CursorLeft;
                     int cy = Console.CursorTop;
 
+                    Console.Write("\n\n==============================================================================");
+
                     string buf = "";
                     //считывает первую строку
                     buf = reader.ReadLine();
@@ -73,11 +75,13 @@ namespace ConsoleApplication1
                         i++;
                     }
 
+                    Console.WriteLine("\n\n=[ Process is finished! ]");
+
                     writer.Close();
                     reader.Close();
                 }
                 else
-                    Console.WriteLine("  File PFR base - not exists.");
+                    Console.WriteLine("  File PFR base (MS0) - not exists.");
 
             }
             else
