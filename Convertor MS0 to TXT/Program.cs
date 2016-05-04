@@ -5,11 +5,11 @@ using System.Text;
 //using System.Threading.Tasks;
 using System.IO;
 
-namespace ConsoleApplication1
+namespace Convertor_MS0_to_TXT
 {
     class Program
     {
-        public static object MessageBox { get; private set; }
+        //public static object MessageBox { get; private set; }
 
         static void Main(string[] args)
         {
@@ -19,8 +19,8 @@ namespace ConsoleApplication1
             if (args.Length == 2)
             {
                 //Console.WriteLine("Arguments: " + string.Join(",", args));
-                var in_name = args[0];
-                var out_name = args[1];
+                string in_name = args[0];
+                string out_name = args[1];
 
                 if (File.Exists(in_name))
                 {
