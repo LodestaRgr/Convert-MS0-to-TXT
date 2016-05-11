@@ -58,14 +58,36 @@ namespace Convertor_MS0_to_TXT
 
                         if (buf[0].ToString() == k)                 //если строка начинается с символа к
                         {
-                            writer.Write(buf);
-                            j = false;
+							if (buf.Length == 978 || buf.Length == 1022)
+							{
+								writer.Write(buf);
+							}
+							else
+							{
+								if (buf.Length < 978)				//если строка меньше формата (MS0 - 012xxx.ms0)
+								{
+									writer.Write(String.Format("{0,-978}", buf));	//добавить пробелы до 978
+								}
+								else								//если строка меньше формата (000 - 120xxx.ms0)
+								{
+									writer.Write(String.Format("{0,-1022}", buf));	//добавить пробелы до 1022
+								}
+							}
+							j = false;
                         }
                         else
                         {
                             if (!j)
                             {
-                                writer.Write(buf + "\n");
+								if (buf.Length == 222)
+								{
+                                	writer.Write(buf + "\n");
+								}
+								else								//если строка меньше формата
+								{
+									writer.Write(String.Format("{0,-222}", buf));	//добавить пробелы до 222
+									writer.Write("\n");
+								}
                                 j = true;
                             }
 
