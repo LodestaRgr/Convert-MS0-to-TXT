@@ -28,15 +28,34 @@ namespace Convertor_MS0_to_TXT
                     long i = 1;
                     bool j = false;
 
+					//определяет имя файла
+					FileInfo fi = new FileInfo(in_name);
+					string fname = fi.Name;
+
+					//определяет версию файла
+					string fver = "???";							//если первые символы другие
+					if(fname.Length >= 3)							//если имя файла >= 3-м символам
+					{
+						if (fname.Substring(0,3) == "012")			//если первые символы 012
+						{
+							fver = "012";
+						}
+						else if (fname.Substring(0,3) == "120")		//если первые символы 120
+						{
+							fver = "120";
+						}
+					}
+
                     //открывает файл для чтения
                     FileStream in_file = new FileStream(in_name, FileMode.Open, FileAccess.Read);
                     StreamReader reader = new StreamReader(in_file, Encoding.Default);
+
 
                     //открывает файл для записи
                     FileStream out_file = new FileStream(out_name, FileMode.Create);
                     StreamWriter writer = new StreamWriter(out_file, Encoding.Default);
 
-                    Console.Write("  PFR base : \t" + in_name + "\n\n" +
+                    Console.Write("  PFR base : \t" + fname + " (ver. " + fver + ")\n\n" +
                                   "  Total lines: \t" + in_count + "\n" +
                                   "  Convert: \t");
 
@@ -62,15 +81,26 @@ namespace Convertor_MS0_to_TXT
 							{
 								writer.Write(buf);
 							}
-							else
+							else									//если строка не стандартной длины
 							{
-								if (buf.Length < 978)				//если строка меньше формата (MS0 - 012xxx.ms0)
+								if (fver == "012")					//если версия файла 012
 								{
 									writer.Write(String.Format("{0,-978}", buf));	//добавить пробелы до 978
 								}
-								else								//если строка меньше формата (000 - 120xxx.ms0)
+								else if (fver == "120")				//если версия файла 120
 								{
 									writer.Write(String.Format("{0,-1022}", buf));	//добавить пробелы до 1022
+								}
+								else								//если  версия файла другая
+								{
+									if (buf.Length < 978)			//если строка меньше формата (MS0 - 012xxx.ms0)
+									{
+										writer.Write(String.Format("{0,-978}", buf));	//добавить пробелы до 978
+									}
+									else							//если строка меньше формата (000 - 120xxx.ms0)
+									{
+										writer.Write(String.Format("{0,-1022}", buf));	//добавить пробелы до 1022
+									}
 								}
 							}
 							j = false;
@@ -79,15 +109,9 @@ namespace Convertor_MS0_to_TXT
                         {
                             if (!j)
                             {
-//								if (buf.Length == 222)
-//								{
-                                	writer.Write(buf + "\n");
-//								}
-//								else								//если строка меньше формата
-//								{
-//									writer.Write(String.Format("{0,-222}", buf));	//добавить пробелы до 222
-//									writer.Write("\n");
-//								}
+								writer.Write(buf + "\n");
+//								writer.Write(String.Format("{0,-222}", buf)); 	//добавить пробелы до 222
+//								writer.Write("\n");
                                 j = true;
                             }
 
