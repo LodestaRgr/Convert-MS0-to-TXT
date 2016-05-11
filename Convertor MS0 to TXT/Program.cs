@@ -79,15 +79,15 @@ namespace Convertor_MS0_to_TXT
                         {
                             if (!j)
                             {
-								if (buf.Length == 222)
-								{
+//								if (buf.Length == 222)
+//								{
                                 	writer.Write(buf + "\n");
-								}
-								else								//если строка меньше формата
-								{
-									writer.Write(String.Format("{0,-222}", buf));	//добавить пробелы до 222
-									writer.Write("\n");
-								}
+//								}
+//								else								//если строка меньше формата
+//								{
+//									writer.Write(String.Format("{0,-222}", buf));	//добавить пробелы до 222
+//									writer.Write("\n");
+//								}
                                 j = true;
                             }
 
